@@ -1,0 +1,25 @@
+package jm.task.core.jdbc.service;
+
+import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.util.Util;
+
+import java.sql.Connection;
+import java.util.List;
+
+import static jm.task.core.jdbc.util.Util.getConnection;
+
+public interface UserService {
+
+
+    void createUsersTable();
+
+    void dropUsersTable();
+
+    void saveUser(String name, String lastName, byte age);
+
+    void removeUserById(long id);
+
+    List<User> getAllUsers();
+
+    void cleanUsersTable();
+}
