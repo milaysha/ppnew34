@@ -1,26 +1,32 @@
 package jm.task.core.jdbc;
 
-import jm.task.core.jdbc.dao.UserDao;
-import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
-import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
-import jm.task.core.jdbc.model.User;
-import jm.task.core.jdbc.util.Util;
 
-import java.util.List;
+import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.service.UserService;
+import jm.task.core.jdbc.service.UserServiceImpl;
 
 public class Main {
     public static void main(String[] args) {
         // реализуйте алгоритм здесь
-        UserDao userDao = new UserDaoJDBCImpl();
+        UserService userService = new UserServiceImpl();
 
-        userDao.createUsersTable();
-        userDao.saveUser("Иван", "Иванов", (byte) 34);
-        userDao.saveUser("Мария", "Петрова", (byte) 45);
-        userDao.saveUser("Ирина", "Александровна", (byte) 45);
-        userDao.saveUser("Екатерина", "Ринатовна", (byte) 45);
+        userService.createUsersTable();
 
-        userDao.getAllUsers().forEach(System.out::println);
-        userDao.cleanUsersTable();
-        userDao.dropUsersTable();
+
+        userService.saveUser("Иван", "Иванов", (byte) 34);
+        userService.saveUser("Мария", "Петрова", (byte) 45);
+        userService.saveUser("Ирина", "Александровна", (byte) 45);
+        userService.saveUser("Екатерина", "Ринатовна", (byte) 45);
+
+        System.out.println("Список всех пользователей:");
+        for (User user : userService.getAllUsers()) {
+            System.out.println(user);
+        }
+
+        userService.cleanUsersTable();
+        System.out.println("Таблица очищена. Текущие пользователи: " + userService.getAllUsers().size());
+
+
+        userService.dropUsersTable();
     }
 }
